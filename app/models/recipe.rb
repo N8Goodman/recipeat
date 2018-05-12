@@ -1,6 +1,10 @@
 class Recipe < ApplicationRecord
   enum season: [:spring, :summer, :fall, :winter]
-  enum type: [:chicken, :beef, :pork, :fish, :vegetarian]
+  enum main_ingredient: [:chicken, :beef, :pork, :fish, :vegetarian]
 
-  has_many :ingredients
+  has_many :recipe_ingredients
+  has_many :ingredients, through: :recipe_ingredients
+
+  accepts_nested_attributes_for :ingredients
+  accepts_nested_attributes_for :recipe_ingredients
 end

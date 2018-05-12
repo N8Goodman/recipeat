@@ -1,4 +1,4 @@
-<%= form_for(recipe) do |f| %>
+<%= simple_form_for(recipe) do |f| %>
   <% if recipe.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
@@ -12,28 +12,30 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.input :name %>
   </div>
 
   <div class="field">
-    <%= f.label :time %>
-    <%= f.number_field :time %>
+    <%= f.input :time %>
   </div>
 
   <div class="field">
-    <%= f.label :season %>
-    <%= f.number_field :season %>
+    <%= f.input :season, collection: @seasons %>
   </div>
 
   <div class="field">
-    <%= f.label :favorite %>
-    <%= f.check_box :favorite %>
+    <%= f.input :favorite %>
   </div>
 
   <div class="field">
-    <%= f.label :type %>
-    <%= f.number_field :type %>
+    <%= f.input :main_ingredient, collection: @main_ingredients %>
+  </div>
+  <h3>Ingredients</h3>
+  <div class="field" id="recipes">
+    <%= f.simple_fields_for :recipe_ingredients do |recipe_ingredient| %>
+      <%= render 'recipe_ingredient_fields', f: recipe_ingredient %>
+        <%= link_to_add_association 'add an ingredient', f, :recipe_ingredients %>
+    <% end %>
   </div>
 
   <div class="actions">

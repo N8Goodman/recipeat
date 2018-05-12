@@ -1,0 +1,7 @@
+<div class="nested-fields recipe-ingredient-fields">
+  <div class="ingredient_from_list">
+    <%= f.association :ingredients, collection: Ingredient.all, prompt: 'Choose an ingredient' %>
+  </div>
+  <%= link_to_add_association 'or create a new ingredient', f, :ingredient %>
+  <%= link_to_remove_association "remove ingredient", f %>
+</div>

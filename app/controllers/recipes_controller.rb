@@ -1,5 +1,6 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
+  before_action :form_data, only: [:edit, :new]
 
   # GET /recipes
   # GET /recipes.json
@@ -67,8 +68,13 @@ class RecipesController < ApplicationController
       @recipe = Recipe.find(params[:id])
     end
 
+    def form_data
+      @seasons = Recipe.seasons.keys
+      @main_ingredients = Recipe.main_ingredients.keys
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipe_params
-      params.require(:recipe).permit(:name, :time, :season, :favorite, :type)
+      params.require(:recipe).permit(:name, :time, :season, :favorite, :main_ingredient)
     end
 end

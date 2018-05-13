@@ -1,34 +1,46 @@
-<p id="notice"><%= notice %></p>
+'<p id="notice"><%= notice %></p>
 
 <h1>Recipes</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Time</th>
-      <th>Season</th>
-      <th>Favorite</th>
-      <th>Main Ingredient</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @recipes.each do |recipe| %>
+<%= search_form_for @q, remote: true do |f| %>
+  <table class="table table-striped table-hover table-responsive">
+    <thead>
       <tr>
-        <td><%= recipe.name %></td>
-        <td><%= recipe.time %></td>
-        <td><%= recipe.season %></td>
-        <td><%= recipe.favorite %></td>
-        <td><%= recipe.main_ingredient %></td>
-        <td><%= link_to 'Show', recipe %></td>
-        <td><%= link_to 'Edit', edit_recipe_path(recipe) %></td>
-        <td><%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th></th>
+        <th>Name</th>
+        <th>Time</th>
+        <th>Season</th>
+        <th>Main Ingredient</th>
+        <th>Ingredients</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th><%= f.search_field :time_lteq %></th>
+        <th>
+          <%= f.collection_select :season_eq, @seasons, :second, :first, { include_blank: "Season" }, class: "auto-select-filter form-control" %>
+        </th>
+        <th>
+          <%= f.collection_select :main_ingredient_eq, @main_ingredients, :second, :first, { include_blank: "Main Ingredient" }, class: "auto-select-filter form-control" %>
+        </th>
+        <th>Ingredients</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody id="recipe-rows">
+      <% if @recipes.present? %>
+        <%= render @recipes %>
+      <% else %>
+        <tr>
+          <td colspan="7">
+            <strong>No results available</strong>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 
 <br>
 

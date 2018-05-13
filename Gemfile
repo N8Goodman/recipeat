@@ -38,6 +38,8 @@ gem 'simple_form'
 gem "select2-rails", '~>4.0.2'
 gem 'bootstrap', '~> 4.1.1'
 gem 'cocoon'
+gem 'material_icons'
+gem 'ransack', github: 'activerecord-hackery/ransack'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

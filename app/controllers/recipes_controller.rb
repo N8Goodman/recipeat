@@ -1,4 +1,5 @@
 class RecipesController < ApplicationController
+  before_action :filter_data, only: [:index]
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
   before_action :form_data, only: [:edit, :new, :create, :update]
   before_action :handle_ingredients, only: [:update]
@@ -6,7 +7,8 @@ class RecipesController < ApplicationController
   # GET /recipes
   # GET /recipes.json
   def index
-    @recipes = Recipe.all
+    @q = Recipe.ransack(params[:q])
+    @recipes = @q.result(distinct: true)
   end
 
   # GET /recipes/1
@@ -73,6 +75,11 @@ class RecipesController < ApplicationController
       @seasons = Recipe.seasons.keys
       @main_ingredients = Recipe.main_ingredients.keys
       @ingredients = @recipe ? @recipe.ingredients.map {|ingredient| {id: ingredient.id, name: ingredient.name}} : []
+    end
+
+    def filter_data
+      @seasons = Recipe.seasons
+      @main_ingredients = Recipe.main_ingredients
     end
 
     def handle_ingredients

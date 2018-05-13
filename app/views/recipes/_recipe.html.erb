@@ -1,0 +1,18 @@
+<tr>
+  <td><%= material_icon.stars if recipe.favorite %></td>
+  <td><%= link_to recipe.name, recipe %></td>
+  <td><%= recipe.time %></td>
+  <td><%= recipe.season %></td>
+  <td><%= recipe.main_ingredient %></td>
+  <td><%= recipe.ingredients.count %></td>
+  <td>
+    <%= link_to edit_recipe_path(recipe) do %>
+      <%= material_icon.edit %>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to recipe, method: :delete, data: { confirm: 'Are you sure?' } do %>
+      <%= material_icon.delete %>
+    <% end %>
+  </td>
+</tr>

@@ -31,7 +31,7 @@
           <%= f.collection_select :ingredients_name_in, Ingredient.all, :name, :name, { include_blank: "Any" }, class: "select-2 auto-select-filter form-control", multiple: true %>
 
         </th>
-        <th><%= link_to "Clear Filters", recipes_path, class: "btn btn-defualt", remote: true %></th>
+        <th><%= link_to "Clear Filters", recipes_path, class: "btn btn-defualt" %></th>
       </tr>
     </thead>
 

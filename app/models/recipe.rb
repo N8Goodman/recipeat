@@ -8,7 +8,12 @@ class Recipe < ApplicationRecord
   accepts_nested_attributes_for :ingredients
   accepts_nested_attributes_for :recipe_ingredients
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
   validates :time, presence: true
   validates :main_ingredient, presence: true
+
+
+  def name=(s)
+      super s.titleize
+  end
 end

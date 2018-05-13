@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.input :name %>
+    <%= f.input :name, input_html: { class: 'col-4'} %>
   </div>
 
   <div class="field">
@@ -20,20 +20,28 @@
   </div>
 
   <div class="field">
-    <%= f.input :season, collection: @seasons %>
+    <%= f.input :season, collection: @seasons, input_html: { class: "select-2" } %>
+  </div>
+
+  <div class="check-box-field">
+    <%= f.input :favorite, as: :boolean, boolean_style: :nested %>
   </div>
 
   <div class="field">
-    <%= f.input :favorite %>
+    <%= f.input :main_ingredient, collection: @main_ingredients, input_html: { class: "select-2" } %>
   </div>
-
-  <div class="field">
-    <%= f.input :main_ingredient, collection: @main_ingredients %>
+  <div class="row pb-5 pt-3">
+    <div class="col-12">
+      <h3>Ingredients</h3>
+    </div>
+    <div class="col-12">
+      <div class="field">
+        <%= f.collection_select :ingredients, Ingredient.all, :name, :name, {}, {class: "ingredient-select", multiple: true} %>
+      </div>
+    </div>
   </div>
-  <h3>Ingredients</h3>
-  <%= f.input :ingredients, as: :select, collection: Ingredient.all, value_method: :name, input_html: {multiple: true, class: "ingredient-select"}, include_blank: true %>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>
 <%= javascript_tag("ingredient.init(#{@ingredients.map(&:to_json)})") %>

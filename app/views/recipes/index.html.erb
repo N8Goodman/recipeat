@@ -18,13 +18,13 @@
         <th>Name</th>
         <th><%= f.search_field :time_lteq %></th>
         <th>
-          <%= f.collection_select :season_eq, @seasons, :second, :first, { include_blank: "Season" }, class: "auto-select-filter form-control" %>
+          <%= f.collection_select :season_eq, @seasons, :second, :first, { include_blank: "All" }, class: "select-2 auto-select-filter form-control" %>
         </th>
         <th>
-          <%= f.collection_select :main_ingredient_eq, @main_ingredients, :second, :first, { include_blank: "Main Ingredient" }, class: "auto-select-filter form-control" %>
+          <%= f.collection_select :main_ingredient_eq, @main_ingredients, :second, :first, { include_blank: "Any" }, class: "select-2 auto-select-filter form-control" %>
         </th>
         <th>Ingredients</th>
-        <th></th>
+        <th><%= link_to "Clear Filters", recipes_path, class: "btn btn-defualt", remote: true %></th>
       </tr>
     </thead>
 

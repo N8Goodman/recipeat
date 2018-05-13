@@ -24,7 +24,9 @@
         <th></th>
       </tr>
       <tr>
-        <th></th>
+        <th>
+          <%= f.check_box :favorite_true, class: "auto-check" %>
+        </th>
         <th>
           <%= f.search_field :name_cont, class: "form-control string patient-search auto-search" %>
         </th>

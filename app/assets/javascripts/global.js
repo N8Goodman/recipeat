@@ -30,6 +30,7 @@ autoCheck = {
 var autoFilters = function() {
   autoSelect();
   autoSearch();
+  autoCheck.init()
 }
 
 var autoSelect = function() {

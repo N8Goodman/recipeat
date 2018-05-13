@@ -15,15 +15,22 @@
       </tr>
       <tr>
         <th></th>
-        <th>Name</th>
-        <th><%= f.search_field :time_lteq %></th>
+        <th>
+          <%= f.search_field :name_cont, class: "form-control string patient-search auto-search" %>
+        </th>
+        <th>
+          <%= f.search_field :time_lteq, class: "form-control string patient-search auto-search" %>
+        </th>
         <th>
           <%= f.collection_select :season_eq, @seasons, :second, :first, { include_blank: "All" }, class: "select-2 auto-select-filter form-control" %>
         </th>
         <th>
           <%= f.collection_select :main_ingredient_eq, @main_ingredients, :second, :first, { include_blank: "Any" }, class: "select-2 auto-select-filter form-control" %>
         </th>
-        <th>Ingredients</th>
+        <th>
+          <%= f.collection_select :ingredients_name_in, Ingredient.all, :name, :name, { include_blank: "Any" }, class: "select-2 auto-select-filter form-control", multiple: true %>
+
+        </th>
         <th><%= link_to "Clear Filters", recipes_path, class: "btn btn-defualt", remote: true %></th>
       </tr>
     </thead>
@@ -45,3 +52,4 @@
 <br>
 
 <%= link_to 'New Recipe', new_recipe_path %>
+<%= javascript_tag("page.init()") %>

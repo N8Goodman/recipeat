@@ -9,6 +9,7 @@ class RecipesController < ApplicationController
   def index
     @q = Recipe.ransack(params[:q])
     @recipes = @q.result(distinct: true)
+    @recipes = filter_recipes(params[:q][:ingredients_name_in].reject(&:empty?)) if params[:q] && params[:q][:ingredients_name_in]
   end
 
   # GET /recipes/1
@@ -83,17 +84,23 @@ class RecipesController < ApplicationController
     end
 
     def handle_ingredients
-      ingredients = []
-      ingredients_list = params[:recipe][:ingredients].reject!(&:empty?)
-      ingredients_list.each do |ingredient_item|
-        ingredient = Ingredient.find_or_create_by(name: ingredient_item)
-        ingredients << ingredient
-        @recipe.ingredients << ingredient unless @recipe.ingredients.include?(ingredient)
+      if params[:recipe] && params[:recipe][:ingredients]
+        ingredients = []
+        ingredients_list = params[:recipe][:ingredients].reject!(&:empty?)
+        ingredients_list.each do |ingredient_item|
+          ingredient = Ingredient.find_or_create_by(name: ingredient_item)
+          ingredients << ingredient
+          @recipe.ingredients << ingredient unless @recipe.ingredients.include?(ingredient)
+        end
+        removals = @recipe.ingredients - ingredients
+        removals.each do |removed_ingredient|
+          @recipe.ingredients.delete(removed_ingredient)
+        end
       end
-      removals = @recipe.ingredients - ingredients
-      removals.each do |removed_ingredient|
-        @recipe.ingredients.delete(removed_ingredient)
-      end
+    end
+
+    def filter_recipes(filter_ingredients)
+      @recipes.select{ |recipe| (filter_ingredients - recipe.ingredients.map(&:name)).empty?}
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

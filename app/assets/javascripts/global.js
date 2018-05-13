@@ -1,6 +1,5 @@
 $(document).ready(function(){
-  $('.select-2').select2({theme: "bootstrap"});
-  autoFilters();
+  page.init()
 });
 ingredient = {
   init: function(ingredients) {
@@ -11,6 +10,21 @@ ingredient = {
     $('.ingredient-select').select2({theme: "bootstrap", multiple: true, tags: true});
     $('.ingredient-select').val(list).trigger('change')
   },
+}
+
+page = {
+  init: function() {
+    $('.select-2').select2({theme: "bootstrap"});
+    autoFilters();
+  }
+}
+
+autoCheck = {
+  init: function() {
+    $('body').on('change', '.auto-check', function(e) {
+      $(this.form).trigger('submit.rails');
+    })
+  }
 }
 
 var autoFilters = function() {

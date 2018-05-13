@@ -1,9 +1,16 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @recipe.name %>
-</p>
+<div class="col-12">
+  <div class="row pb-3 align-items-center">
+    <h1>
+      <%= @recipe.name %>
+    </h1>
+    <div>
+      <%= button_to @recipe, remote: true, method: :put, params: {recipe: {favorite: !@recipe.favorite? } }, class: "btn btn-default" do %>
+        <%= favorite_star(@recipe) %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <p>
   <strong>Time:</strong>
@@ -16,18 +23,14 @@
 </p>
 
 <p>
-  <strong>Favorite:</strong>
-  <%= @recipe.favorite %>
-</p>
-
-<p>
   <strong>Main Ingredient:</strong>
   <%= @recipe.main_ingredient %>
 </p>
-<h3>Ingredients</h3>
+<h3>Ingredients(<%= @recipe.ingredients.count %>)</h3>
 <% @recipe.ingredients.each do |ingredient| %>
   <p><%= ingredient.name %></p>
 <% end %>
 
 <%= link_to 'Edit', edit_recipe_path(@recipe) %> |
 <%= link_to 'Back', recipes_path %>
+<%= javascript_tag("autoCheck.init()") %>

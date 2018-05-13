@@ -30,3 +30,32 @@
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   border: 1px solid #ccc;
 }
+
+input.favorite-check {
+  display: none;
+}
+
+  label.favorite-check-label {
+    cursor: pointer;
+    margin: 0 5px;
+    border: 2px solid;
+    border-radius: 4px;
+    display: inline-block;
+    height: 25px;
+    width: 100px;
+    background-color: #fff;
+    text-align: center;
+    line-height: 25px;
+  }
+
+input.favorite-check:checked + label {
+  background-color: #FFD700;
+  color: #fff;
+  border: 3px solid #ccc;
+  border-radius: 4px;
+}
+
+.material-icons.fav {
+  color: #FFD700;
+}
+

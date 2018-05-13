@@ -1,5 +1,5 @@
 <tr>
-  <td><%= material_icon.stars if recipe.favorite %></td>
+  <td><%= favorite_star(recipe, 24) %></td>
   <td><%= link_to recipe.name, recipe %></td>
   <td><%= recipe.time %></td>
   <td><%= recipe.season %></td>

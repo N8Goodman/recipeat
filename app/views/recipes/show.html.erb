@@ -5,9 +5,7 @@
       <%= @recipe.name %>
     </h1>
     <div>
-      <%= button_to @recipe, remote: true, method: :put, params: {recipe: {favorite: !@recipe.favorite? } }, class: "btn btn-default" do %>
-        <%= favorite_star(@recipe) %>
-      <% end %>
+      <%= favorite_button(@recipe, 48) %>
     </div>
   </div>
 </div>

@@ -7,4 +7,8 @@ class Recipe < ApplicationRecord
 
   accepts_nested_attributes_for :ingredients
   accepts_nested_attributes_for :recipe_ingredients
+
+  validates :name, presence: true
+  validates :time, presence: true
+  validates :main_ingredient, presence: true
 end

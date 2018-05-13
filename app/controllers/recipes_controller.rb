@@ -1,6 +1,7 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
-  before_action :form_data, only: [:edit, :new]
+  before_action :form_data, only: [:edit, :new, :create, :update]
+  before_action :handle_ingredients, only: [:update]
 
   # GET /recipes
   # GET /recipes.json
@@ -26,9 +27,9 @@ class RecipesController < ApplicationController
   # POST /recipes.json
   def create
     @recipe = Recipe.new(recipe_params)
-
     respond_to do |format|
       if @recipe.save
+        handle_ingredients
         format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
         format.json { render :show, status: :created, location: @recipe }
       else
@@ -71,10 +72,31 @@ class RecipesController < ApplicationController
     def form_data
       @seasons = Recipe.seasons.keys
       @main_ingredients = Recipe.main_ingredients.keys
+      @ingredients = @recipe ? @recipe.ingredients.map {|ingredient| {id: ingredient.id, name: ingredient.name}} : []
+    end
+
+    def handle_ingredients
+      ingredients = []
+      ingredients_list = params[:recipe][:ingredients].reject!(&:empty?)
+      ingredients_list.each do |ingredient_item|
+        ingredient = Ingredient.find_or_create_by(name: ingredient_item)
+        ingredients << ingredient
+        @recipe.ingredients << ingredient unless @recipe.ingredients.include?(ingredient)
+      end
+      removals = @recipe.ingredients - ingredients
+      removals.each do |removed_ingredient|
+        @recipe.ingredients.delete(removed_ingredient)
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipe_params
-      params.require(:recipe).permit(:name, :time, :season, :favorite, :main_ingredient)
+      params.require(:recipe).permit(
+        :name, 
+        :time, 
+        :season, 
+        :favorite, 
+        :main_ingredient
+      )
     end
 end

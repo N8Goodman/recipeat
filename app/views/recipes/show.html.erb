@@ -24,6 +24,10 @@
   <strong>Main Ingredient:</strong>
   <%= @recipe.main_ingredient %>
 </p>
+<h3>Ingredients</h3>
+<% @recipe.ingredients.each do |ingredient| %>
+  <p><%= ingredient.name %></p>
+<% end %>
 
 <%= link_to 'Edit', edit_recipe_path(@recipe) %> |
 <%= link_to 'Back', recipes_path %>

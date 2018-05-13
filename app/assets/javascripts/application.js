@@ -14,8 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require select2
-//= require_tree .
-//= require cocoon
 //= require global
-//= require recipes
+//= require cocoon
+//= require_tree .
 

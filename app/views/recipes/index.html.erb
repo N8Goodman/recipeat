@@ -3,7 +3,7 @@
 <div class="col-12">
   <div class="row">
     <div class="col-8">
-      <h1>Recipes</h1>
+      <h1>Recipes(<%= @recipes.count %>)</h1>
     </div>
     <div class="col">
       <%= link_to 'Add Recipe', new_recipe_path, class: "btn btn-primary" %>
@@ -25,7 +25,7 @@
       </tr>
       <tr>
         <th>
-          <%= f.check_box :favorite_true, class: "auto-check" %>
+          <%# f.check_box :favorite_true, class: "auto-check" %>
         </th>
         <th>
           <%= f.search_field :name_cont, class: "form-control string patient-search auto-search" %>
